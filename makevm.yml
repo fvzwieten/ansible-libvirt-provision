@@ -14,9 +14,9 @@
     vms:
       "{{ vm_hostname }}":
         mac: 00
-        cpu: 1
+        cpu: 2
         ip: "{{ vm_ip_address }}" 
-        mem: 1048576
+        mem: 2097152
 
   tasks:
 
