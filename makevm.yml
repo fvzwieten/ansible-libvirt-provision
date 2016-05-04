@@ -12,7 +12,7 @@
     qemu:
       machine: pc-i440fx-2.3
     vms:
-      {{ vm_hostname }}:
+      "{{ vm_hostname }}":
         mac: 00
         cpu: 1
         ip: 192.168.122.44
