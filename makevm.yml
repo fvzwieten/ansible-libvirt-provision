@@ -21,7 +21,7 @@
   tasks:
 
   - name: create VM Disks
-    shell: qemu-img create -f qcow2 -b "{{ template_disk }}" "{{ item.key }}".qcow2 chdir="{{ vmdir }}"
+    shell: qemu-img create -f qcow2 "{{ template_disk }}" "{{ item.key }}".qcow2 chdir="{{ vmdir }}"
     with_dict: "{{ vms }}"
 
   - name: inject network-config
