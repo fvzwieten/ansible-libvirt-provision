@@ -13,12 +13,16 @@
       machine: pc-i440fx-2.3
     vms:
       "{{ vm_hostname }}":
-        mac: "{{ openssl rand 4 | xxd -p | sed 's/\(..\)/\1:/g; s/:$//' }}"
         cpu: 2
         ip: "{{ vm_ip_address }}" 
         mem: 2097152
 
   tasks:
+
+  - name: generate MAC address
+    shell: openssl rand 4 | xxd -p | sed 's/\(..\)/\1:/g; s/:$//'
+    register: mac_generated
+    with_dict: "{{ vms }}"
 
   - name: create VM Disks
     shell: qemu-img create -f qcow2 -b "{{ template_disk }}" "{{ item.key }}".qcow2 chdir="{{ vmdir }}"
