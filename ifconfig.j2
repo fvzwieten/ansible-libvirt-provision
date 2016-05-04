@@ -1,0 +1,11 @@
+TYPE=ETHERNET
+NAME=eth0
+DEVICE=eth0
+BOOTPROTO=static
+IPV6INIT=no
+ONBOOT=yes
+IPADDR={{ item.value.ip }}
+NETMASK={{ vmnet.netmask }}
+GATEWAY={{ vmnet.gateway }}
+DNS1={{ vmnet.dns }}
+DOMAIN={{ vmnet.domain }}

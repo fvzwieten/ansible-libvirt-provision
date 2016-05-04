@@ -1,7 +1,17 @@
-# ansible-libvirt-role
-This project's purpose is to have a Playbook that
-1) clones a Libvirt template and creates a new VM
-2) runs a basic play to bring the VM to a certain state
+# Ansible VMcreator
+Ansible Playbook to quickly roll out a set of virtual machines on libvirt
 
-The initial part is based on Andrea Stolzenberger's project:
-https://github.com/astolzen/ansible_vmcreator
+what does it do:
+* thin clone VM-boot Disk from an RHEL7 Template using qemu-img with backing store
+* creates a second disk for each VM if requested
+* uses libguestfs tools to inject static network config into VMs
+* creates the VM definition from J2-templated XML-file
+
+requires:
+* qemu-kvm, libvirt
+* libuestfstools
+
+Work in progress:
+* build as role
+* add more variables to make the vmcreator Playbook more flexible
+* add more Playbooks to configure the VMs after being rolled out
