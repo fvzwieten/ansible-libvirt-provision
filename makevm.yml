@@ -4,7 +4,7 @@
     vmdir: /home/bdubois/Documents/Labs/
     template_disk: ansible-client-clone.qcow2
     vmnet:
-      basemac: 52:54:00:4e:12
+      basemac: 52:54
       gateway: 192.168.122.1
       dns: 192.168.122.1
       netmask: 255.255.255.0
@@ -13,7 +13,7 @@
       machine: pc-i440fx-2.3
     vms:
       "{{ vm_hostname }}":
-        mac: 00
+        mac: "{{ openssl rand 4 | xxd -p | sed 's/\(..\)/\1:/g; s/:$//' }}"
         cpu: 2
         ip: "{{ vm_ip_address }}" 
         mem: 2097152
