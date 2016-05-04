@@ -41,6 +41,8 @@
     when: item.value.addisk is defined
     with_dict: "{{ vms }}"
 
+  - debug: msg="{{ generated_mac }}"
+  
   - name: Create VMs
     virt: name={{ item.key }}
           command=define
