@@ -32,7 +32,7 @@
     </disk>
 {% endif %}
     <interface type='network'>
-      <mac address='{{ vmnet.basemac }}:"{{ mac_generated.stdout }}"'/>
+      <mac address='{{ vmnet.basemac }}:{{ macunique.stdout }}'/>
       <source network='default'/>
       <model type='virtio'/>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x0'/>
