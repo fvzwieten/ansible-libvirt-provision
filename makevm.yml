@@ -20,7 +20,7 @@
   tasks:
 
   - name: Add VM to DNS
-    lineinfile: dest=/etc/hosts regexp='^' line='{{ vm_ip_address }} {{ vm_hostname }}' owner=root group=root mode=0644
+    lineinfile: dest=/etc/hosts line='{{ vm_ip_address }} {{ vm_hostname }}' owner=root group=root mode=0644
     with_dict: "{{ vms }}"
 
   - name: Restart DNSmasq
