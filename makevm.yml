@@ -1,14 +1,14 @@
 ---
-- hosts: wodan.home.local 
+- hosts: all
   vars:
-    vmdir: /home/bdubois/Documents/Labs/
-    template_disk: ansible-client-clone.qcow2
+    vmdir: /home/fred/vm
+    template_disk: rhel72.labs.local-disk1
     vmnet:
       basemac: "52:54"
       gateway: 192.168.122.1
       dns: 192.168.122.1
       netmask: 255.255.255.0
-      domain: home.local
+      domain: lab1.local
     qemu:
       machine: pc-i440fx-2.3
     vms:
