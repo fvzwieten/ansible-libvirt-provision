@@ -30,10 +30,10 @@
     shell: qemu-img create -f qcow2 -b "{{ template_disk }}" "{{ vm_hostname }}"-disk1.qcow2 chdir="{{ vmdir }}"
 
   - name: inject network-config
-    shell: virt-customize -a  "{{ vmdir }}"/"{{ vm_hostname }}".qcow2 --run-command 'echo "{{ lookup('template', 'ifconfig.j2') }}" > /etc/sysconfig/network-scripts/ifcfg-eth0'
+    shell: virt-customize -a  "{{ vmdir }}"/"{{ vm_hostname }}"-disk1.qcow2 --run-command 'echo "{{ lookup('template', 'ifconfig.j2') }}" > /etc/sysconfig/network-scripts/ifcfg-eth0'
 
   - name: hostname
-    shell: virt-customize -a  "{{ vmdir }}"/"{{ vm_hostname }}".qcow2 --run-command 'echo "{{ vm_hostname }}" > /etc/hostname'
+    shell: virt-customize -a  "{{ vmdir }}"/"{{ vm_hostname }}"-disk1.qcow2 --run-command 'echo "{{ vm_hostname }}" > /etc/hostname'
 
   - name: create Additional Disk
     shell: qemu-img create -f qcow2 "{{ vm_hostname }}"-disk1.qcow2 "{{ disk2 }}"G chdir="{{ vmdir }}"
