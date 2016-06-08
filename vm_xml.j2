@@ -1,7 +1,7 @@
 <domain type='kvm'>
-  <name>{{ item.key }}</name>
-  <memory unit='KiB'>{{ item.value.mem }}</memory>
-  <vcpu placement='static'>{{ item.value.cpu }}</vcpu>
+  <name>{{ vm_hostname }}</name>
+  <memory unit='KiB'>{{ mem }}</memory>
+  <vcpu placement='static'>{{ cpu }}</vcpu>
   <os>
     <type arch='x86_64' machine='{{ qemu.machine }}'>hvm</type>
     <boot dev='hd'/>
@@ -19,14 +19,14 @@
     <emulator>/usr/bin/qemu-kvm</emulator>
     <disk type='file' device='disk'>
       <driver name='qemu' type='qcow2'/>
-      <source file='{{ vmdir }}{{ item.key }}.qcow2'/>
+      <source file='{{ vmdir }}{{ vm_hostname }}-disk1.qcow2'/>
       <target dev='vda' bus='virtio'/>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x07' function='0x0'/>
     </disk>
-{% if item.value.addisk is defined %}
+{% if disk2 is defined %}
     <disk type='file' device='disk'>
       <driver name='qemu' type='qcow2'/>
-      <source file='{{ vmdir }}{{ item.key }}_addisk.qcow2'/>
+      <source file='{{ vmdir }}{{ vm_hostname }}_disk2.qcow2'/>
       <target dev='vdb' bus='virtio'/>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x09' function='0x0'/>
     </disk>
