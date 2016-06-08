@@ -49,7 +49,7 @@
     with_dict: "{{ vms }}"
 
 #  - debug: msg="{{ mac_generated }}"
-  - debug: var=vms verbosity=4
+  - debug: var=vms
   
   - name: Create VMs
     virt: name={{ item.key }}
