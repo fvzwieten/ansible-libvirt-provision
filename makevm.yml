@@ -36,7 +36,7 @@
     shell: virt-customize -a  "{{ vmdir }}"/"{{ vm_hostname }}"-disk1.qcow2 --run-command 'echo "{{ vm_hostname }}" > /etc/hostname'
 
   - name: create Additional Disk
-    shell: qemu-img create -f qcow2 "{{ vm_hostname }}"-disk1.qcow2 "{{ disk2 }}"G chdir="{{ vmdir }}"
+    shell: qemu-img create -f qcow2 "{{ vm_hostname }}"-disk2.qcow2 "{{ disk2 }}"G chdir="{{ vmdir }}"
     when: disk2 is defined
 
   - name: Create VMs
