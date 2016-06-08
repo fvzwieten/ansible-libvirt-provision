@@ -51,6 +51,7 @@
 #  - debug: msg="{{ mac_generated }}"
   
   - name: Create VMs
+    debug: var=vms verbosity=4
     virt: name={{ item.key }}
           command=define
           xml="{{ lookup('template', 'vm_xml.j2') }}"
