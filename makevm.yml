@@ -1,7 +1,7 @@
 ---
 - hosts: all
   vars:
-    vmdir: /home/fred/vm
+    vmdir: /home/fred/vm/
     template_disk: rhel72.labs.local-disk1
     vmnet:
 #      basemac: "52:54"
