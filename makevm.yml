@@ -49,9 +49,9 @@
     with_dict: "{{ vms }}"
 
 #  - debug: msg="{{ mac_generated }}"
+  - debug: var=vms verbosity=4
   
   - name: Create VMs
-    debug: var=vms verbosity=4
     virt: name={{ item.key }}
           command=define
           xml="{{ lookup('template', 'vm_xml.j2') }}"
