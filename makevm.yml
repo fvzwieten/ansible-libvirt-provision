@@ -49,12 +49,12 @@
     with_dict: "{{ vms }}"
 
   - name: Create VMs
-    virt: name="{{ item.key }}"
+    virt: name="{{ item.key.stdout }}"
           command=define
           xml="{{ lookup('template', 'vm_xml.j2') }}"
     with_dict: "{{ vms }}"
 
   - name: Start VMs
-    virt: name="{{ item.key }}"
+    virt: name="{{ item.key.stdout }}"
           state=running
     with_dict: "{{ vms }}"
