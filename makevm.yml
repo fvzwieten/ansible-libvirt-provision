@@ -11,8 +11,8 @@
       domain: lab1.local
     qemu:
       machine: pc-i440fx-2.3
-        cpu: 2
-        mem: 2097152
+      cpu: 2
+      mem: 2097152
 
   tasks:
 
