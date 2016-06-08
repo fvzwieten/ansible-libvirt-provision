@@ -48,16 +48,13 @@
     when: item.value.addisk is defined
     with_dict: "{{ vms }}"
 
-  - debug: msg={{ item.key }}
-    with_dict: "{{ vms }}"
-
   - name: Create VMs
-    virt: name={{ item.key }}
+    virt: name="{{ item.key }}"
           command=define
           xml="{{ lookup('template', 'vm_xml.j2') }}"
     with_dict: "{{ vms }}"
 
   - name: Start VMs
-    virt: name={{ item.key }}
+    virt: name="{{ item.key }}"
           state=running
     with_dict: "{{ vms }}"
