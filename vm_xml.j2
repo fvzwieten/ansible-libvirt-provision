@@ -1,7 +1,7 @@
 <domain type='kvm'>
   <name>{{ vm_hostname }}</name>
-  <memory unit='KiB'>{{ mem }}</memory>
-  <vcpu placement='static'>{{ cpu }}</vcpu>
+  <memory unit='KiB'>{{ qemu.mem }}</memory>
+  <vcpu placement='static'>{{ qemu.cpu }}</vcpu>
   <os>
     <type arch='x86_64' machine='{{ qemu.machine }}'>hvm</type>
     <boot dev='hd'/>
