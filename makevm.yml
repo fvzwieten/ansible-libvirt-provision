@@ -4,7 +4,7 @@
     vmdir: /home/fred/vm
     template_disk: rhel72.labs.local-disk1
     vmnet:
-      basemac: "52:54"
+#      basemac: "52:54"
       gateway: 192.168.122.1
       dns: 192.168.122.1
       netmask: 255.255.255.0
@@ -22,9 +22,9 @@
   - name: Restart DNSmasq
     shell: killall -HUP dnsmasq
 
-  - name: generate MAC address
-    shell: openssl rand 4 | xxd -p | sed 's/\(..\)/\1:/g; s/:$//'
-    register: macunique
+#  - name: generate MAC address
+#    shell: openssl rand 4 | xxd -p | sed 's/\(..\)/\1:/g; s/:$//'
+#    register: macunique
 
   - name: create VM Disks
     shell: qemu-img create -f qcow2 -b "{{ template_disk }}" "{{ vm_hostname }}"-disk1.qcow2 chdir="{{ vmdir }}"
