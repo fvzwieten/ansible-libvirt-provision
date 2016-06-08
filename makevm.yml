@@ -11,17 +11,13 @@
       domain: lab1.local
     qemu:
       machine: pc-i440fx-2.3
-    vms:
-      "{{ vm_hostname }}" :
         cpu: 2
-        ip: "{{ vm_ip_address }}" 
         mem: 2097152
 
   tasks:
 
   - name: Add VM to DNS
     lineinfile: dest=/etc/hosts line='{{ vm_ip_address }} {{ vm_hostname }}' owner=root group=root mode=0644
-    with_dict: "{{ vms }}"
 
   - name: Restart DNSmasq
     shell: killall -HUP dnsmasq
@@ -29,32 +25,25 @@
   - name: generate MAC address
     shell: openssl rand 4 | xxd -p | sed 's/\(..\)/\1:/g; s/:$//'
     register: macunique
-    with_dict: "{{ vms }}"
 
   - name: create VM Disks
-    shell: qemu-img create -f qcow2 -b "{{ template_disk }}" "{{ item.key }}".qcow2 chdir="{{ vmdir }}"
-    with_dict: "{{ vms }}"
+    shell: qemu-img create -f qcow2 -b "{{ template_disk }}" "{{ vm_hostname }}"-disk1.qcow2 chdir="{{ vmdir }}"
 
   - name: inject network-config
-    shell: virt-customize -a  "{{ vmdir }}"/"{{ item.key }}".qcow2 --run-command 'echo "{{ lookup('template', 'ifconfig.j2') }}" > /etc/sysconfig/network-scripts/ifcfg-eth0'
-    with_dict: "{{ vms }}"
+    shell: virt-customize -a  "{{ vmdir }}"/"{{ vm_hostname }}".qcow2 --run-command 'echo "{{ lookup('template', 'ifconfig.j2') }}" > /etc/sysconfig/network-scripts/ifcfg-eth0
 
   - name: hostname
-    shell: virt-customize -a  "{{ vmdir }}"/"{{ item.key }}".qcow2 --run-command 'echo "{{ lookup('template', 'hostname.j2') }}" > /etc/hostname'
-    with_dict: "{{ vms }}"
+    shell: virt-customize -a  "{{ vmdir }}"/"{{ vm_hostname }}".qcow2 --run-command 'echo "{{ lookup('template', 'hostname.j2') }}" > /etc/hostname'
 
-  - name: create Additional Disks
-    shell: qemu-img create -f qcow2 "{{ item.key }}"_addisk.qcow2 "{{ item.value.addisk }}"G chdir="{{ vmdir }}"
-    when: item.value.addisk is defined
-    with_dict: "{{ vms }}"
+#  - name: create Additional Disks
+#    shell: qemu-img create -f qcow2 "{{ item.key }}"_addisk.qcow2 "{{ item.value.addisk }}"G chdir="{{ vmdir }}"
+#    when: item.value.addisk is defined
 
   - name: Create VMs
-    virt: name="{{ item.key.stdout }}"
+    virt: name="{{ vm_hostname }}"
           command=define
           xml="{{ lookup('template', 'vm_xml.j2') }}"
-    with_dict: "{{ vms }}"
 
   - name: Start VMs
-    virt: name="{{ item.key.stdout }}"
+    virt: name="{{ vm_hostname }}"
           state=running
-    with_dict: "{{ vms }}"
