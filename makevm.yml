@@ -49,8 +49,8 @@
     with_dict: "{{ vms }}"
 
 #  - debug: msg="{{ mac_generated }}"
-  - debug: var=item.stdout
-    with_items: vms
+  - debug: var
+    with_items: vm_hostname
   
   - name: Create VMs
     virt: name={{ item.key }}
